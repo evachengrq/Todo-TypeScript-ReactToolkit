@@ -1,0 +1,42 @@
+.textfield {
+  margin: 0 auto;
+  padding: 16px 0;
+  background-color: white;
+  width: 550px;
+  height: 33px;
+  border: 1px solid lightgray;
+  border-bottom: none;
+  text-align: right;
+}
+
+.textfield__button {
+  background-color: transparent;
+  border: none;
+  transform: rotate(90deg);
+  color: #e6e6e6;
+  font-size: 22px;
+  margin-right: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.textfield__input {
+  width: 474px;
+  height: 33px;
+  margin-right: 16px;
+  font-weight: 300;
+  border: none;
+  padding-left: 10px;
+  font-size: 24px;
+}
+
+.textfield__input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #e6e6e6;
+}
+
+.textfield__input:focus {
+  outline: none;
+}
