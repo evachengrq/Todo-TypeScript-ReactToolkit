@@ -5,8 +5,8 @@ import Footer from "../Footer/Footer";
 import TodoList from "../TodoList/TodoList";
 import { AppThunkDispatch } from "../../store/store";
 import './App.css';
-import { useDispatch, useSelector } from "react-redux";
-import { fetchData, Todo } from './slice';
+import { useDispatch } from "react-redux";
+import { fetchData } from './slice';
 
 function App() {
 

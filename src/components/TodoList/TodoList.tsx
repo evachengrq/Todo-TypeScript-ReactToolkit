@@ -9,7 +9,6 @@ function TodoList() {
 
   const todoItems: Todo[] = useSelector<Todo[], Todo[]>(state => state)
   
-  
   return(
     <ul className="todo-items">
       {todoItems.map(
