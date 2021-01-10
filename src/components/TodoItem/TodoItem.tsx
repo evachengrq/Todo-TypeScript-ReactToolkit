@@ -41,9 +41,18 @@ function TodoItem(props: props) {
     }
   }
 
+  const handleCheckboxChange = () => {
+    const completedItem = {
+      id: id,
+      value: value,
+      isCompleted: !isCompleted
+    }
+    dispatch(updateTodo(completedItem))
+  }
+
   return (
     <li className="todo-item">
-      <input type="checkbox" className="todo-item__checkbox" id={id}/>
+      <input type="checkbox" className="todo-item__checkbox" checked={isCompleted ? true : false} id={id} onChange={handleCheckboxChange}/>
       {isEditing 
       ? <input type="text" data-testid="editTextField" className="todo-item__input" value={value} onKeyDown={handleKeyDown} onChange={handleChange}/> 
       : <p className={classNames(['todo-item__text', {'todo-item__text--crossed': isCompleted}])} onDoubleClick={handleDoubleClick}>{value}</p>}

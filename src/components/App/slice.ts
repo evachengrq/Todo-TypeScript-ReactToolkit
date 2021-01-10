@@ -20,7 +20,6 @@ export interface State {
 const initialState:State = {todos: [], completionStatus: CompletionStatus.ALL}
 
 export const getListByStatus = (state: State): Todo[] => {
-  //根据state打印不同的todolist
   if (state.completionStatus === 'Active') {
     return state.todos.filter(item => item.isCompleted === false)
   } else if (state.completionStatus === 'Completed') {

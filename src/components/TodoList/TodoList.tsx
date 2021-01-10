@@ -1,8 +1,7 @@
 import './TodoList.css'
-// import TodoItem from '../todo-item/TodoItem'
 import React from 'react'
 import { useSelector } from "react-redux"
-import { Todo, getListByStatus, State } from '../App/slice';
+import { Todo, getListByStatus, State } from '../App/slice'
 import TodoItem from "../TodoItem/TodoItem";
 
 function TodoList() {

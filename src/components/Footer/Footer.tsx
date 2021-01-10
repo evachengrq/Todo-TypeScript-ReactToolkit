@@ -1,24 +1,34 @@
 import './Footer.css'
-import { updateCompletionStatus } from "../App/slice"
-import { useDispatch } from 'react-redux'
+import { deleteTodo, State, Todo, updateCompletionStatus } from "../App/slice"
+import { useDispatch, useSelector } from 'react-redux'
 
 function Footer() {
 
   const dispatch = useDispatch()
 
-  const handleClick = (status: string) => {
+  const activeItems: Todo[] = useSelector<State, Todo[]>(state => state.todos.filter(item => item.isCompleted === false))
+  const lengthOfActives = activeItems.length
+  const completedItems: Todo[] = useSelector<State, Todo[]>(state => state.todos.filter(item => item.isCompleted === true))
+  const lengthOfCompleteds = completedItems.length
+
+
+  const handleClickFilter = (status: string) => {
     dispatch(updateCompletionStatus(status))
+  }
+
+  const handleClickClear = () => {
+    completedItems.map(item => dispatch(deleteTodo(item.id)))
   }
 
   return(
     <section className="footer">
-      <p> 2 items left </p>
+      <p> {lengthOfActives > 1 ? lengthOfActives + " items left": lengthOfActives + " item left"} </p>
       <ul className="filter">
-        <li className="filter__tab" onClick={() => handleClick('All')}>All</li>
-        <li className="filter__tab" onClick={() => handleClick('Active')}>Active</li>
-        <li className="filter__tab" onClick={() => handleClick('Completed')}>Completed</li>
+        <li className="filter__tab" onClick={() => handleClickFilter('All')}>All</li>
+        <li className="filter__tab" onClick={() => handleClickFilter('Active')}>Active</li>
+        <li className="filter__tab" onClick={() => handleClickFilter('Completed')}>Completed</li>
       </ul>
-      <button className="footer__clear">Clear completed</button>
+      <button onClick={handleClickClear} className={lengthOfCompleteds > 0 ? "footer__clear" : "hidden"}>Clear completed</button>
     </section>
   )
 }
