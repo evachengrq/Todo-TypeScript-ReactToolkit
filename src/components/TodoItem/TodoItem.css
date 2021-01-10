@@ -2,7 +2,6 @@
   display: flex;
   background-color: white;
   width: 550px;
-  height: 65px;
   font-weight: 200;
   border-bottom: none;
   list-style: none;
@@ -19,11 +18,15 @@
 
 .todo-item__checkbox {
   visibility: hidden;
+  height: 30px;
+  width: 30px;
+  margin: 15px 0 0 10px;
+  position: relative;
 }
 
 .todo-item__checkbox[type="checkbox"]::before {
   visibility: visible;
-  margin: 15px 0 0 10px;
+  position: absolute;
   content: "";
   display: block;
   width: 28px;
@@ -48,10 +51,9 @@
 }
 
 .todo-item__text {
-  margin-left: 40px;
+  margin: 16px 0 16px 20px;
   width: 430px;
   text-align: left;
-  align-self: center;
   word-break: break-all;
 }
 

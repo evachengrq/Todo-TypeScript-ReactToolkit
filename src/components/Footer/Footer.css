@@ -20,14 +20,20 @@
 }
 
 .filter__tab {
+  padding: 3px 7px;
   margin-right: 10px;
   border: 1px solid transparent;
-  padding: 3px 7px;
 }
 
 .filter__tab:hover {
   border: 1px solid #cc9a9a;
   cursor: pointer;
+}
+
+.filter__tab--bordered {
+  padding: 3px 7px;
+  margin-right: 10px;
+  border: 1px solid #cc9a9a;
 }
 
 .footer__clear {

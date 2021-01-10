@@ -7,22 +7,22 @@ export interface Todo {
   isCompleted: boolean
 }
 
-export enum CompletionStatus{
+export enum Filteration{
   ALL = 'All',
   COMPLETED = 'Completed',
   ACTIVE = 'Active'
 }
 
 export interface State {
-  todos: Todo[], completionStatus: CompletionStatus
+  todos: Todo[], filteration: Filteration
 }
 
-const initialState:State = {todos: [], completionStatus: CompletionStatus.ALL}
+const initialState:State = {todos: [], filteration: Filteration.ALL}
 
 export const getListByStatus = (state: State): Todo[] => {
-  if (state.completionStatus === 'Active') {
+  if (state.filteration === 'Active') {
     return state.todos.filter(item => item.isCompleted === false)
-  } else if (state.completionStatus === 'Completed') {
+  } else if (state.filteration === 'Completed') {
     return state.todos.filter(item => item.isCompleted === true)
   } else {
     return state.todos
@@ -75,7 +75,7 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     updateCompletionStatus:(state, action) => {
-      state.completionStatus = action.payload
+      state.filteration = action.payload
     }
   },
   extraReducers: builder => {

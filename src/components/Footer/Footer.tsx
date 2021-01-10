@@ -11,6 +11,8 @@ function Footer() {
   const completedItems: Todo[] = useSelector<State, Todo[]>(state => state.todos.filter(item => item.isCompleted === true))
   const lengthOfCompleteds = completedItems.length
 
+  const status = useSelector<State, string>(state => state.filteration)
+
 
   const handleClickFilter = (status: string) => {
     dispatch(updateCompletionStatus(status))
@@ -24,9 +26,9 @@ function Footer() {
     <section className="footer">
       <p> {lengthOfActives > 1 ? lengthOfActives + " items left": lengthOfActives + " item left"} </p>
       <ul className="filter">
-        <li className="filter__tab" onClick={() => handleClickFilter('All')}>All</li>
-        <li className="filter__tab" onClick={() => handleClickFilter('Active')}>Active</li>
-        <li className="filter__tab" onClick={() => handleClickFilter('Completed')}>Completed</li>
+        <li className={status === 'All'? "filter__tab--bordered" : "filter__tab"} onClick={() => handleClickFilter('All')}>All</li>
+        <li className={status === 'Active'? "filter__tab--bordered" : "filter__tab"} onClick={() => handleClickFilter('Active')}>Active</li>
+        <li className={status === 'Completed'? "filter__tab--bordered" : "filter__tab"} onClick={() => handleClickFilter('Completed')}>Completed</li>
       </ul>
       <button onClick={handleClickClear} className={lengthOfCompleteds > 0 ? "footer__clear" : "hidden"}>Clear completed</button>
     </section>
