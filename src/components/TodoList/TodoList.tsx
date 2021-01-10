@@ -2,12 +2,12 @@ import './TodoList.css'
 // import TodoItem from '../todo-item/TodoItem'
 import React from 'react'
 import { useSelector } from "react-redux"
-import { Todo } from '../App/slice';
+import { Todo, getListByStatus, State } from '../App/slice';
 import TodoItem from "../TodoItem/TodoItem";
 
 function TodoList() {
 
-  const todoItems: Todo[] = useSelector<Todo[], Todo[]>(state => state)
+  const todoItems: Todo[] = useSelector<State, Todo[]>(state => getListByStatus(state))
   
   return(
     <ul className="todo-items">

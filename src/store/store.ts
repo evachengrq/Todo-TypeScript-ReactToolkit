@@ -1,5 +1,5 @@
 import { AnyAction, configureStore, ThunkDispatch } from "@reduxjs/toolkit";
-import reducer from "../components/App/slice";
+import { reducer } from "../components/App/slice";
 
 export type RootState = ReturnType<typeof reducer>
 const store = configureStore({reducer})

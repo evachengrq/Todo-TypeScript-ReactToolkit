@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
 export interface Todo {
@@ -7,7 +7,29 @@ export interface Todo {
   isCompleted: boolean
 }
 
-const initialState: Todo[] = []
+export enum CompletionStatus{
+  ALL = 'All',
+  COMPLETED = 'Completed',
+  ACTIVE = 'Active'
+}
+
+export interface State {
+  todos: Todo[], completionStatus: CompletionStatus
+}
+
+const initialState:State = {todos: [], completionStatus: CompletionStatus.ALL}
+
+export const getListByStatus = (state: State): Todo[] => {
+  //根据state打印不同的todolist
+  if (state.completionStatus === 'Active') {
+    return state.todos.filter(item => item.isCompleted === false)
+  } else if (state.completionStatus === 'Completed') {
+    return state.todos.filter(item => item.isCompleted === true)
+  } else {
+    return state.todos
+  }
+}
+
 const dataUrl: string = 'http://localhost:3001/todos'
 
 export const fetchData = createAsyncThunk<Todo[]> ('data_acquisition', async() => {
@@ -52,27 +74,31 @@ export const updateTodo = createAsyncThunk('update-data', async(item: Todo) => {
 const dataSlice = createSlice({
   name: 'data',
   initialState,
-  reducers: {},
+  reducers: {
+    updateCompletionStatus:(state, action) => {
+      state.completionStatus = action.payload
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchData.fulfilled, (state, {payload}) => {
-      state = payload
+      state.todos = payload
       return state
     })
     builder.addCase(addTodo.fulfilled, (state, {payload}) => {
-      state.push(payload)
+      state.todos.push(payload)
     })
     builder.addCase(deleteTodo.fulfilled, (state, {payload}) => {
-      state = state.filter(item => item.id !== payload)
+      state.todos = state.todos.filter(item => item.id !== payload)
       return state
     })
     builder.addCase(updateTodo.fulfilled, (state, {payload}) => {
-      const index = state.findIndex(item => item.id === payload.id)
-      const itemsBeforeEditedItem = state.slice(0, index)
-      const itemsAfterEditedItem = state.slice(index + 1)
-      state = [...itemsBeforeEditedItem, payload, ...itemsAfterEditedItem];
+      const index = state.todos.findIndex(item => item.id === payload.id)
+      const itemsBeforeEditedItem = state.todos.slice(0, index)
+      const itemsAfterEditedItem = state.todos.slice(index + 1)
+      state.todos = [...itemsBeforeEditedItem, payload, ...itemsAfterEditedItem];
       return state
     })
   }
 })
-
-export default dataSlice.reducer
+export const { updateCompletionStatus } = dataSlice.actions
+export const reducer = dataSlice.reducer
