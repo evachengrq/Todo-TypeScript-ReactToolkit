@@ -33,7 +33,7 @@ const dataUrl: string = 'http://localhost:3001/todos'
 
 export const fetchData = createAsyncThunk<Todo[]> ('data_acquisition', async() => {
   const resp = await fetch(dataUrl)
-  return (await resp.json()) as Todo[]
+  return resp.json()
 })
 
 export const addTodo = createAsyncThunk<Todo, string> ('post_data', async(input: string) => {
